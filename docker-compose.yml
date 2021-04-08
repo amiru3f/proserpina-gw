@@ -1,0 +1,22 @@
+version: "2.4"
+
+networks:
+  micro-services-network:
+services:
+  auth:
+    networks: 
+      - micro-services-network
+    image: proserpina-api-auth:latest
+  hello:
+    networks: 
+      - micro-services-network
+    image: proserpina-api-hello:latest
+  gw:
+    networks: 
+      - micro-services-network
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx/www:/var/www
+      - ./nginx/conf.d/:/etc/nginx
